@@ -14,6 +14,9 @@ page_element="""
   background-image: url("https://i.artfile.ru/1920x1080_927461_[www.ArtFile.ru].jpg");
   background-size: cover;
 }
+[data-testid="block-container"]
+ { background-color: rgba(255, 255, 255, 0.7);
+}
 [data-testid="baseButton-secondary"]{
 background-color: rgb(176 96 255 / 70%);
 }
