@@ -91,101 +91,101 @@ with tabs[1]:
     st.header('Это простой инструмент для поиска информации по ключевым словам')
     class Article:
 
-    def __init__(self, title='', link='', authors=''):
-        self.__title = title
-        self.__link = link
-        self.__authors = authors
-        self.__year = 0
-        self.__rsci = False
-        self.__vak = False
-        self.__scopus = False
+      def __init__(self, title='', link='', authors=''):
+          self.__title = title
+          self.__link = link
+          self.__authors = authors
+          self.__year = 0
+          self.__rsci = False
+          self.__vak = False
+          self.__scopus = False
 
-    def check_filter(self, filter):
-        if filter == 22 and not self.__rsci or filter == 8 and not self.__vak or filter == 2 and not self.__scopus:
-            return False
-        return True
+      def check_filter(self, filter):
+          if filter == 22 and not self.__rsci or filter == 8 and not self.__vak or filter == 2 and not self.__scopus:
+              return False
+          return True
 
-    @property
-    def title(self):
-        return self.__title
+      @property
+      def title(self):
+          return self.__title
 
-    @title.setter
-    def title(self, value):
-        self.__title = value
+      @title.setter
+      def title(self, value):
+          self.__title = value
 
-    @property
-    def link(self):
-        return self.__link
+      @property
+      def link(self):
+          return self.__link
 
-    @link.setter
-    def link(self, value):
-        self.__link = value
+      @link.setter
+      def link(self, value):
+          self.__link = value
 
-    @property
-    def authors(self):
-        return self.__authors
+      @property
+      def authors(self):
+          return self.__authors
 
-    @authors.setter
-    def authors(self, value):
-        self.__authors = value
+      @authors.setter
+      def authors(self, value):
+          self.__authors = value
 
-    @property
-    def year(self):
-        return self.__year
+      @property
+      def year(self):
+          return self.__year
 
-    @year.setter
-    def year(self, value):
-        self.__year = value
+      @year.setter
+      def year(self, value):
+          self.__year = value
 
-    @property
-    def rsci(self):
-        return self.__rsci
+      @property
+      def rsci(self):
+          return self.__rsci
 
-    @rsci.setter
-    def rsci(self, value):
-        self.__rsci = value
+      @rsci.setter
+      def rsci(self, value):
+          self.__rsci = value
 
-    @property
-    def vak(self):
-        return self.__vak
+      @property
+      def vak(self):
+          return self.__vak
 
-    @vak.setter
-    def vak(self, value):
-        self.__vak = value
+      @vak.setter
+      def vak(self, value):
+          self.__vak = value
 
-    @property
-    def scopus(self):
-        return self.__scopus
+      @property
+      def scopus(self):
+          return self.__scopus
 
-    @scopus.setter
-    def scopus(self, value):
-        self.__scopus = value
+      @scopus.setter
+      def scopus(self, value):
+          self.__scopus = value
 
-TERM_LINK = '"link":'
-TERM_FOUND = '"found":'
+  TERM_LINK = '"link":'
+  TERM_FOUND = '"found":'
 
-API = 'https://cyberleninka.ru/api/search'
-URL = 'https://cyberleninka.ru'
+  API = 'https://cyberleninka.ru/api/search'
+  URL = 'https://cyberleninka.ru'
 
-REQUEST_BODY = {
-    'mode': 'articles',
-    'size': 10,
-}
+  REQUEST_BODY = {
+      'mode': 'articles',
+      'size': 10,
+  }
 
-ARTICLES_PER_PAGE = 10
+  ARTICLES_PER_PAGE = 10
 
 
-class Searcher:
+  class Searcher:
 
-    def __try_parse_article(self, link, article):
-        response_page = requests.get(link)
-        bs_page = bs4.BeautifulSoup(response_page.text, 'html.parser')
-        try:
-            article.title = bs_page.i.text
-        except:
-            print('done')
+      def __try_parse_article(self, link, article):
+          response_page = requests.get(link)
+          bs_page = bs4.BeautifulSoup(response_page.text, 'html.parser')
+          try:
+              article.title = bs_page.i.text
+          except:
+              print('done')
 
-        authors = bs_page.find('h2', {'class': 'right-title'}).span.text
+          authors = bs_page.find('h2', {'class': 'right-title'}).span.text
         article.authors = authors[authors.find('—') + 2:]
 
         labels = bs_page.find('div', {'class': 'labels'})
